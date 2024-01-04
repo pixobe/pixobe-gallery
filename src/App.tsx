@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import PhotoAlbum from "react-photo-album";
+import { saveGallery } from './utils/rest-utils';
 
 declare const wp: any;
 const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
 
-class PixobeGallery extends React.Component<{}, { photos: Array<any> }> {
+class PixobeGallery extends React.Component<{ id: string }, { photos: Array<any> }> {
 
   media = wp.media({ title: "Pixobe Gallery", multiple: "add" });
 
@@ -45,27 +46,32 @@ class PixobeGallery extends React.Component<{}, { photos: Array<any> }> {
           sizes: item.sizes,
           src: photo.url,
           width: photo.width,
-          height: photo.height,
-          srcSet: breakpoints.map((breakpoint) => {
-            const height = Math.round((photo.height / photo.width) * breakpoint);
-            return {
-              src: photo.url,
-              width: breakpoint,
-              height,
-            };
-          }),
+          height: photo.height
         }
       });
       this.onMediaSelect(images);
     });
   }
 
+  updateGallery = async () => {
+    const { id } = this.props;
+    const { photos } = this.state;
+
+    const data = {
+      id, images: photos
+    }
+    await saveGallery(data);
+  }
+
   render() {
     const { photos } = this.state;
+
     return (
       <div className="gallery">
-        <button onClick={this.uploadMedia}>Upload</button>
+
         <PhotoAlbum layout="rows" photos={photos} />
+        <button onClick={this.uploadMedia}>Upload</button>
+        <button onClick={this.updateGallery}>Save</button>
       </div>
     );
   }

@@ -8,6 +8,10 @@
  * Author URI: 		https://pixobe.com/
  */
 
+
+ require trailingslashit(plugin_dir_path(__FILE__)) . 'includes/rest.php';
+
+
 function pixobe_gallery() {
 
     wp_enqueue_media();
@@ -40,12 +44,10 @@ function pixobe_gallery_page() {
    require_once(__DIR__."/views/home.php");
 }
 
-
 /**
  * 
  */
 function enquue_pixobe_gallery_scripts(){
-
     wp_enqueue_script(
        'pixobe-gallery-scripts',
     //    trailingslashit(plugin_dir_url(__FILE__)). "build/static/js/main.71d77bf0.js",
@@ -69,6 +71,10 @@ function enquue_pixobe_gallery_scripts(){
     }
     return $tag;
 }
+
+
+add_action('rest_api_init', 'register_pixobe_gallery_rest_endpoints');
+
 
 add_action('wp_enqueue_scripts', 'enquue_pixobe_gallery_scripts', 5);
 add_action('admin_enqueue_scripts', 'enquue_pixobe_gallery_scripts', 5);
