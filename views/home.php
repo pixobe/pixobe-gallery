@@ -10,4 +10,5 @@
 
  
  ?>
-<web-greeting></web-greeting>
+
+ <pixobe-gallery></pixobe-gallery>
