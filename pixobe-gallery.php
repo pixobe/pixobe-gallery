@@ -37,7 +37,6 @@ add_action('admin_menu', 'pixobe_gallery');
 
 // Callback function for the main admin page
 function pixobe_gallery_page() {
-    wp_enqueue_media();
    require_once(__DIR__."/views/home.php");
 }
 
@@ -49,7 +48,8 @@ function enquue_pixobe_gallery_scripts(){
 
     wp_enqueue_script(
        'pixobe-gallery-scripts',
-       trailingslashit(plugin_dir_url(__FILE__)). "www/build/pixobe-gallery.esm.js",
+    //    trailingslashit(plugin_dir_url(__FILE__)). "build/static/js/main.71d77bf0.js",
+    "http://localhost:3000/static/js/bundle.js",
         array('jquery'),
         '1.0',
         true
