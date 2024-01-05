@@ -24,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "plugin": "wp-scripts plugin-zip"
   },
   "eslintConfig": {
     "extends": [
@@ -43,5 +44,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^26.19.0"
+  },
+  "files": [
+    "build",
+    "includes",
+    "views",
+    "readme.txt",
+    "pixobe-gallery.php",
+    "functions.php"
+  ]
 }
