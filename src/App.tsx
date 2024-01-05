@@ -4,9 +4,8 @@ import PhotoAlbum from "react-photo-album";
 import { saveGallery } from './utils/rest-utils';
 
 declare const wp: any;
-const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
 
-class PixobeGallery extends React.Component<{ id: string }, { photos: Array<any> }> {
+class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array<any> }> {
 
   media = wp.media({ title: "Pixobe Gallery", multiple: "add" });
 
@@ -78,4 +77,4 @@ class PixobeGallery extends React.Component<{ id: string }, { photos: Array<any>
 
 }
 
-export default PixobeGallery;
+export default PixobeGalleryAdmin;

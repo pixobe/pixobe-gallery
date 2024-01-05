@@ -8,8 +8,6 @@
 
  wp_enqueue_media();
 
-
  ?>
 
- <pixobe-gallery  id="1" ></pixobe-gallery>
-
+ <pixobe-gallery id="1" ></pixobe-gallery>
