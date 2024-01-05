@@ -25,7 +25,7 @@ class Pixobe_Gallery_Utils
 
         if ($option_data != false) {
 
-            $data = json_decode($option_data,true);
+            $data = json_decode($option_data, true);
 
             return $data[$id];
         }
@@ -36,16 +36,20 @@ class Pixobe_Gallery_Utils
     {
 
         $data = get_option(PixobeGalleryConstants::PIXOBE_GALLERY_OPT_KEY, false);
-      
+
         if ($data != false) {
 
             $opt = json_decode($data, true);
+
+            if (!$id) {
+                $id = count($opt) + 1;
+            }
 
             $opt[$id] = $gallery_data;
 
             update_option(PixobeGalleryConstants::PIXOBE_GALLERY_OPT_KEY, json_encode($opt));
 
-            return json_decode($data);
+            return array("id"=>$id);
         }
         return null;
     }

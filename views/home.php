@@ -10,4 +10,4 @@
 
  ?>
 
- <pixobe-gallery id="1" ></pixobe-gallery>
+ <pixobe-gallery-admin id="14"></pixobe-gallery-admin>

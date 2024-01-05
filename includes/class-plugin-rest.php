@@ -21,12 +21,12 @@ class Pixobe_Gallery_Rest
 
     public static function init()
     {
-        register_rest_route('pixobe-gallery/v1', '/gallery/(?P<param>\d+)', array(
+        register_rest_route('pixobe-gallery/v1', '/gallery(?:/(?P<id>\d+))?', array(
             'methods' => 'POST',
             'callback' => array("PixobeGallery\Plugins\Pixobe_Gallery_Rest", "update_gallery"),
             'args' => array(
                 'param' => array(
-                    'required' => true,
+                    'required' => false,
                     'validate_callback' => function($param, $request, $key) {
                         return is_numeric($param);
                     },
@@ -54,13 +54,10 @@ class Pixobe_Gallery_Rest
     public static function update_gallery($request)
     {
         //get id
-        $id = $request['param'];
-
+        $id = $request->get_param("id");
         $data = $request->get_json_params();
-
         $response =  Pixobe_Gallery_Utils::add_or_update($data, $id);
-
-        return rest_ensure_response(array("id"=>$id, "body"=>$response));
+        return rest_ensure_response($response);
     }
 
     public static function get_gallery($request)

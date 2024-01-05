@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import PhotoAlbum from "react-photo-album";
-import { saveGallery } from './utils/rest-utils';
+import { getGallery, saveGallery } from './utils/rest-utils';
+import { mapPhotos } from './utils/data-mapper';
 
 declare const wp: any;
 
@@ -25,27 +26,46 @@ class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array
     }
   };
 
+
+  /**
+   * 
+   * @param images 
+   */
   onMediaSelect = (images: Array<any>) => {
+    const photos = mapPhotos(images);
     this.setState({
-      photos: images
+      photos: photos
     });
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     // This code will run after the component has been added to the DOM
     const media = this.media;
+
+    // Load existing data
+    const id = this.props.id;
+
+    if (id) {
+      const data = await getGallery(id);
+      this.setState({
+        photos: data
+      })
+
+    }
+
+
     media.on('select', () => {
       const items = media.state().get('selection').toJSON();
       // Log the selected attachment details
       const images = items.map(item => {
-        const photo = item.sizes.medium || item.sizes.full;
+        const medium = item.sizes.medium;
+        const full = item.sizes.full;
         return {
           id: item.id,
           title: item.title,
           sizes: item.sizes,
-          src: photo.url,
-          width: photo.width,
-          height: photo.height
+          medium: medium,
+          full: full
         }
       });
       this.onMediaSelect(images);
@@ -55,11 +75,8 @@ class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array
   updateGallery = async () => {
     const { id } = this.props;
     const { photos } = this.state;
-
-    const data = {
-      id, images: photos
-    }
-    await saveGallery(data);
+  
+    await saveGallery(photos,id);
   }
 
   render() {
