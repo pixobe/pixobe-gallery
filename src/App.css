@@ -1,4 +1,22 @@
 .gallery {
   box-sizing: border-box;
   padding: 1rem;
+  background-color: #333333;
 }
+
+.controls{
+  position:absolute;
+  bottom:10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display:flex;
+  flex-direction: row;
+  gap:2rem;
+}
+
+
+.controls button, .control a{
+   padding:1rem;
+   box-sizing: border-box;
+}
+

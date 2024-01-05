@@ -9,6 +9,7 @@
  * Author URI: 		https://pixobe.com/
  */
 
+ require trailingslashit(plugin_dir_path(__FILE__)) . 'functions.php';
 
 require trailingslashit(plugin_dir_path(__FILE__)) . 'includes/class-plugin-constants.php';
 require trailingslashit(plugin_dir_path(__FILE__)) . 'includes/class-plugin-utils.php';
@@ -100,3 +101,13 @@ function pixobe_gallery_plugin_activate()
 }
 
 register_activation_hook(__FILE__, 'pixobe_gallery_plugin_activate');
+
+
+add_filter( 'page_template', 'pixobe_gallery_page_template' );
+function pixobe_gallery_page_template( $page_template )
+{
+    if ( is_page( 'pixobe-coloring' ) ) {
+        $page_template = trailingslashit(plugin_dir_path(__FILE__)) . 'views/coloring-template.php';
+    }
+    return $page_template;
+}

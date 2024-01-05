@@ -6,7 +6,7 @@ import { mapPhotos } from './utils/data-mapper';
 
 declare const wp: any;
 
-class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array<any> }> {
+class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array<any>, images: Array<any> }> {
 
   media = wp.media({ title: "Pixobe Gallery", multiple: "add" });
 
@@ -14,6 +14,7 @@ class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array
     super(props);
     this.state = {
       photos: [],
+      images: [],
     };
   }
 
@@ -34,7 +35,8 @@ class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array
   onMediaSelect = (images: Array<any>) => {
     const photos = mapPhotos(images);
     this.setState({
-      photos: photos
+      photos: photos,
+      images: images
     });
   }
 
@@ -42,14 +44,18 @@ class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array
     // This code will run after the component has been added to the DOM
     const media = this.media;
 
-    // Load existing data
+    // // Load existing data
     const id = this.props.id;
 
     if (id) {
       const data = await getGallery(id);
+
+      const photos = mapPhotos(data);
+
       this.setState({
-        photos: data
-      })
+        photos: photos,
+        images: data
+      });
 
     }
 
@@ -74,9 +80,9 @@ class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array
 
   updateGallery = async () => {
     const { id } = this.props;
-    const { photos } = this.state;
-  
-    await saveGallery(photos,id);
+    const { images } = this.state;
+
+    await saveGallery(images, id);
   }
 
   render() {

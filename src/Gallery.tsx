@@ -3,15 +3,24 @@ import './App.css';
 import PhotoAlbum from "react-photo-album";
 import { getGallery, saveGallery } from './utils/rest-utils';
 
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+
+import ButtonControls from './Controls';
+import { mapPhotos } from './utils/data-mapper';
+
 declare const wp: any;
 
-class PixobeGallery extends React.Component<{ id: string }, { photos: Array<any> }> {
+class PixobeGallery extends React.Component<{ id: string }, { photos: Array<any>, images: Array<any>, index: number }> {
 
 
     constructor(props) {
         super(props);
         this.state = {
             photos: [],
+            index: -1,
+            images: []
         };
     }
 
@@ -19,21 +28,50 @@ class PixobeGallery extends React.Component<{ id: string }, { photos: Array<any>
         const id = this.props.id;
         try {
             // Perform asynchronous tasks here
-            const data = await getGallery(id);
-            console.log(data)
+            const images = await getGallery(id);
+            const photos = mapPhotos(images);
+            this.setState(
+                {
+                    photos,
+                    images
+                }
+            )
         } catch (error) {
             // Handle errors
             console.error('Error:', error);
         }
     }
 
+    setIndex(index) {
+        this.setState({
+            index
+        })
+    }
+
+    renderControls() {
+        return <div>I am a control</div>
+    }
+
 
     render() {
         const photos = this.state.photos;
-
+        const images = this.state.images;
+        const index = this.state.index;
         return (
             <div className="gallery">
-                <PhotoAlbum layout="rows" photos={photos} />
+                <PhotoAlbum layout="masonry" photos={photos} columns={3}
+                    targetRowHeight={150} onClick={({ index }) => this.setState({ index: index })} />
+                <Lightbox
+                    slides={photos}
+                    open={index >= 0}
+                    close={() => this.setIndex(-1)}
+                    // enable optional lightbox plugins
+                    plugins={[Fullscreen]}
+                    index={this.state.index}
+                    render={{
+                        controls: () => ButtonControls(images[this.state.index])
+                    }}
+                />
             </div>
         );
     }
