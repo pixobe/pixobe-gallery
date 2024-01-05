@@ -5,9 +5,8 @@
  * Gallery
  */
 
+$id =  esc_attr($atts['id']);
+?>
 
 
- ?>
-
-
-<pixobe-gallery id="14"></pixobe-gallery>
+<pixobe-gallery id="<?php echo $id?>"></pixobe-gallery>

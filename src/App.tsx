@@ -69,7 +69,6 @@ class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array
         return {
           id: item.id,
           title: item.title,
-          sizes: item.sizes,
           medium: medium,
           full: full
         }
@@ -81,20 +80,33 @@ class PixobeGalleryAdmin extends React.Component<{ id: string }, { photos: Array
   updateGallery = async () => {
     const { id } = this.props;
     const { images } = this.state;
-
     await saveGallery(images, id);
+  }
+
+  getShortcode = () =>{
+
+    if(this.props.id){
+       return <div>
+        <h2>Shortcode</h2>
+        <p><code>[pixobe-gallery id="{this.props.id}"]</code></p>
+       </div>
+    }
+    return <div></div>
   }
 
   render() {
     const { photos } = this.state;
 
     return (
-      <div className="gallery">
-
-        <PhotoAlbum layout="rows" photos={photos} />
+      <div>
+        <div className="gallery">
+          <PhotoAlbum layout="rows" photos={photos} />
+        </div>
         <button onClick={this.uploadMedia}>Upload</button>
         <button onClick={this.updateGallery}>Save</button>
+        {this.getShortcode()}
       </div>
+
     );
   }
 

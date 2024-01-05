@@ -3,11 +3,11 @@
  * 
  * 
  */
-export async function saveGallery(data:any, id?:string) {
+export async function saveGallery(data: any, id?: string) {
 
     const myNonce = 'your_generated_nonce';
 
-    const relativeUrl = `?rest_route=/pixobe-gallery/v1/gallery/${id}`;
+    const relativeUrl = id ? `?rest_route=/pixobe-gallery/v1/gallery/${id}` : "?rest_route=/pixobe-gallery/v1/gallery";
 
     // Construct the absolute URL by combining the origin with the relative URL
     const apiUrl = `${window.location.origin}${relativeUrl}`;
@@ -42,7 +42,7 @@ export async function saveGallery(data:any, id?:string) {
  * 
  * 
  */
-export async function getGallery(index:string) : Promise<any> {
+export async function getGallery(index: string): Promise<any> {
 
     const myNonce = 'your_generated_nonce';
 

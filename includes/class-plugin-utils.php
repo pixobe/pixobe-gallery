@@ -29,8 +29,19 @@ class Pixobe_Gallery_Utils
 
             return $data[$id];
         }
-        return null;
+        return array();
     }
+
+    public static function get_galleries()
+    {
+        $option_data = get_option(PixobeGalleryConstants::PIXOBE_GALLERY_OPT_KEY, false);
+        if ($option_data != false) {
+            $data = json_decode($option_data, true);
+            return $data;
+        }
+        return [];
+    }
+
 
     public static function add_or_update($gallery_data, $id)
     {

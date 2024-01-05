@@ -45,13 +45,16 @@ function pixobe_gallery()
     );
 }
 
-// Register the custom admin menu
-add_action('admin_menu', 'pixobe_gallery');
+
 
 // Callback function for the main admin page
 function pixobe_gallery_page()
 {
     require_once(__DIR__ . "/views/home.php");
+}
+
+function pixobe_gallery_list_page(){
+    require_once(__DIR__ . "/views/galleries.php");
 }
 
 /**
@@ -84,26 +87,14 @@ function add_filter_pixobe_gallery_scripts($tag, $handle, $src)
 }
 
 
-add_action('rest_api_init', array("PixobeGallery\Plugins\Pixobe_Gallery_Rest","init"));
-
-
-add_action('wp_enqueue_scripts', 'enquue_pixobe_gallery_scripts', 5);
-add_action('admin_enqueue_scripts', 'enquue_pixobe_gallery_scripts', 5);
-add_filter('script_loader_tag', 'add_filter_pixobe_gallery_scripts', 10, 3);
-
 // on activte
 
 function pixobe_gallery_plugin_activate()
 {
-
-    // on activate
     Pixobe_Gallery_Activator::activate();
 }
 
-register_activation_hook(__FILE__, 'pixobe_gallery_plugin_activate');
 
-
-add_filter( 'page_template', 'pixobe_gallery_page_template' );
 function pixobe_gallery_page_template( $page_template )
 {
     if ( is_page( 'pixobe-coloring' ) ) {
@@ -111,3 +102,13 @@ function pixobe_gallery_page_template( $page_template )
     }
     return $page_template;
 }
+
+add_action('wp_enqueue_scripts', 'enquue_pixobe_gallery_scripts', 5);
+add_action('admin_enqueue_scripts', 'enquue_pixobe_gallery_scripts', 5);
+add_filter('script_loader_tag', 'add_filter_pixobe_gallery_scripts', 10, 3);
+register_activation_hook(__FILE__, 'pixobe_gallery_plugin_activate');
+add_filter( 'page_template', 'pixobe_gallery_page_template' );
+// Register the custom admin menu
+add_action('admin_menu', 'pixobe_gallery');
+add_action('rest_api_init', array("PixobeGallery\Plugins\Pixobe_Gallery_Rest","init"));
+ 

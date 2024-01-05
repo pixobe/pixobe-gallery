@@ -6,14 +6,11 @@ import { getGallery, saveGallery } from './utils/rest-utils';
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
-
 import ButtonControls from './Controls';
 import { mapPhotos } from './utils/data-mapper';
 
-declare const wp: any;
 
 class PixobeGallery extends React.Component<{ id: string }, { photos: Array<any>, images: Array<any>, index: number }> {
-
 
     constructor(props) {
         super(props);
@@ -48,11 +45,6 @@ class PixobeGallery extends React.Component<{ id: string }, { photos: Array<any>
         })
     }
 
-    renderControls() {
-        return <div>I am a control</div>
-    }
-
-
     render() {
         const photos = this.state.photos;
         const images = this.state.images;
@@ -68,8 +60,11 @@ class PixobeGallery extends React.Component<{ id: string }, { photos: Array<any>
                     // enable optional lightbox plugins
                     plugins={[Fullscreen]}
                     index={this.state.index}
+                    on={{
+                        view: ({ index: currentIndex }) => this.setIndex(currentIndex),
+                    }}
                     render={{
-                        controls: () => ButtonControls(images[this.state.index])
+                        controls: () => ButtonControls(images[index])
                     }}
                 />
             </div>

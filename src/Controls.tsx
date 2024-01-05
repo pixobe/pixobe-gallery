@@ -9,12 +9,13 @@ class ButtonControlsComponent extends React.Component<{ photo: any }>{
   printImage = () => {
     const photo = this.props.photo;
     const imageUrl = photo.full.url;
-    console.log(imageUrl)
-    printJS({
-      printable: imageUrl,
-      type: 'image',
-      header: photo.title,
-    })
+    if (imageUrl) {
+      printJS({
+        printable: imageUrl,
+        type: 'image',
+        header: photo.title,
+      })
+    }
   }
 
   goToColoring = (e) => {

@@ -56,8 +56,8 @@ class Pixobe_Gallery_Rest
         //get id
         $id = $request->get_param("id");
         $data = $request->get_json_params();
-        $response =  Pixobe_Gallery_Utils::add_or_update($data, $id);
-        return rest_ensure_response($response);
+        Pixobe_Gallery_Utils::add_or_update($data, $id);
+        return rest_ensure_response(array("msg"=>"Saved successfully"));
     }
 
     public static function get_gallery($request)
