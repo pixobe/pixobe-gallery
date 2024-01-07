@@ -1,5 +1,5 @@
 {
-  "name": "photo-gallery",
+  "name": "pixobe-gallery",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "plugin": "wp-scripts plugin-zip"
@@ -46,10 +46,11 @@
     ]
   },
   "devDependencies": {
-    "@wordpress/scripts": "^26.19.0"
+    "@wordpress/scripts": "^26.19.0",
+    "react-app-rewired": "^2.2.1"
   },
   "files": [
-    "build",
+    "build/static",
     "includes",
     "views",
     "readme.txt",

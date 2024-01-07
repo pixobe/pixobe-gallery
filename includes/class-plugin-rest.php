@@ -24,6 +24,7 @@ class Pixobe_Gallery_Rest
         register_rest_route('pixobe-gallery/v1', '/gallery(?:/(?P<id>\d+))?', array(
             'methods' => 'POST',
             'callback' => array("PixobeGallery\Plugins\Pixobe_Gallery_Rest", "update_gallery"),
+            'permission_callback' => '__return_true',
             'args' => array(
                 'param' => array(
                     'required' => false,
@@ -38,6 +39,7 @@ class Pixobe_Gallery_Rest
         register_rest_route('pixobe-gallery/v1', '/gallery/(?P<id>\d+)', array(
             'methods'  => 'GET',
             'callback' => array("PixobeGallery\Plugins\Pixobe_Gallery_Rest", "get_gallery"),
+            'permission_callback' => '__return_true',
             'args'     => array(
                 'id' => array(
                     'validate_callback' => function ($param, $request, $key) {

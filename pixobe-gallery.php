@@ -64,12 +64,14 @@ function enquue_pixobe_gallery_scripts()
 {
     wp_enqueue_script(
         'pixobe-gallery-scripts',
-        //    trailingslashit(plugin_dir_url(__FILE__)). "build/static/js/main.71d77bf0.js",
-        "http://localhost:3000/static/js/bundle.js",
+           trailingslashit(plugin_dir_url(__FILE__)). "build/static/js/main.js",
         array('jquery'),
         '1.0',
         true
     );
+
+    wp_enqueue_style('pixobe-gallery-style', trailingslashit(plugin_dir_url(__FILE__)). "build/static/css/main.css", array(), '1.0', 'all');
+
 }
 
 function add_filter_pixobe_gallery_scripts($tag, $handle, $src)
@@ -103,6 +105,12 @@ function pixobe_gallery_page_template( $page_template )
     return $page_template;
 }
 
+function pixobe_gallery_enqueu_styles()
+{
+    Pixobe_Gallery_Activator::activate();
+}
+
+
 add_action('wp_enqueue_scripts', 'enquue_pixobe_gallery_scripts', 5);
 add_action('admin_enqueue_scripts', 'enquue_pixobe_gallery_scripts', 5);
 add_filter('script_loader_tag', 'add_filter_pixobe_gallery_scripts', 10, 3);
@@ -111,4 +119,3 @@ add_filter( 'page_template', 'pixobe_gallery_page_template' );
 // Register the custom admin menu
 add_action('admin_menu', 'pixobe_gallery');
 add_action('rest_api_init', array("PixobeGallery\Plugins\Pixobe_Gallery_Rest","init"));
- 

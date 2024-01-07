@@ -1,4 +1,5 @@
-<?php get_header(); ?>
+<?php get_header();
+?>
 
 <?php
 
@@ -11,10 +12,10 @@ if (isset($_GET['image_id'])) {
         <style>
             main {
                 min-height: 80vh;
-                display:flex;
+                display: flex;
                 justify-content: center;
                 align-items: center;
-                width:100%;
+                width: 100%;
             }
         </style>
 
@@ -25,4 +26,5 @@ if (isset($_GET['image_id'])) {
     }
 }
 ?>
-<?php get_footer(); ?>
+<?php get_footer();
+?>
