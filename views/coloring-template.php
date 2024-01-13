@@ -5,8 +5,7 @@
 
 if (isset($_GET['image_id'])) {
     $id = $_GET['image_id'];
-    $image_size = isset($_GET['size']) ? $_GET['size'] : "full";
-    $image_attributes = wp_get_attachment_image_src($id, $image_size);
+    $image_attributes = wp_get_attachment_image_src($id, "medium");
     if ($image_attributes) {
 ?>
 
