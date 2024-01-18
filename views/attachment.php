@@ -6,7 +6,7 @@
 $attachment_id = get_the_ID();
 $post_details = get_post($attachment_id);
 
-$image_size = "medium";
+$image_size = "80%";
 
 // attachments
 $attachment = array(
@@ -106,7 +106,7 @@ $attachment = array(
         <div class="item4"><?php echo $attachment['caption']; ?></div>
         <div class="item5"><?php echo $attachment['description']; ?></div>
         <div class="item6"><button id="button-style">Print</button></div>
-        <div class="item7"><a id="button-style" href="/pixobe-coloring?size=<?php echo esc_attr($image_size) ?>&image_id=<?php echo esc_attr($attachment_id) ?>">Color</a></div>
+        <div class="item7"><a id="button-style" href="/pixobe-coloring?image_width=<?php echo esc_attr($image_size) ?>&image_id=<?php echo esc_attr($attachment_id) ?>">Color</a></div>
     </div>
 </main>
 

@@ -5,17 +5,24 @@
 
 if (isset($_GET['image_id'])) {
     $id = $_GET['image_id'];
-    $image_attributes = wp_get_attachment_image_src($id, "medium");
+    $image_width = $_GET['image_width'] ?? "75";
+    $image_attributes = wp_get_attachment_image_src($id, "full");
+
     if ($image_attributes) {
 ?>
 
         <style>
             main {
-                min-height: 80vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
+                height: 100%;
+                display:flex;
+                margin:0 auto;
+                width: <?php echo esc_html($image_width) ?>%;
+            }
+
+            @media only screen and (max-width: 600px) {
+                main {
+                    width: 100%;
+                }
             }
         </style>
 
